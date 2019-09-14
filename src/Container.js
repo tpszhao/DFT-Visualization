@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import FourierX from './FourierX';
-import App from './App';
+import mainCanvas from './mainCanvas';
 
 function Container() {
     const [pathx, setPathx] = useState([]);
     const [pathy, setPathy] = useState([]);
     const [isdrawing, setIsDrawing] = useState(false);
+    
 
 
     function addPoint(x,y){
@@ -18,16 +19,13 @@ function Container() {
 
     return (
         <div>
-            <App 
+            <mainCanvas 
                 pathx = {pathx} 
                 pathy = {pathy} 
                 addpoint = {addPoint}
                 isdrawing = {isdrawing} 
                 changeisdrawing = {changeIsDrawing}/>
-            <FourierX 
-                pathx = {pathx}   
-                pathy = {pathy} 
-                />
+            <FourierX />
         </div>
     )
 }

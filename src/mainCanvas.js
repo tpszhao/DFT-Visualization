@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 
 
-function App({pathx, pathy, addpoint, isdrawing, changeisdrawing}) {
+function mainCanvas({pathx, pathy, addpoint, isdrawing, changeisdrawing}) {
   const canvasRef = useRef(null);
   
   const [xoffset, yoffset] = [400,300];
@@ -9,6 +9,7 @@ function App({pathx, pathy, addpoint, isdrawing, changeisdrawing}) {
 
   useEffect(()=>{
     draw();
+    drawaxis();
   })
   
   const draw = () => {
@@ -30,6 +31,23 @@ function App({pathx, pathy, addpoint, isdrawing, changeisdrawing}) {
     ctx.restore();
   }
   
+  const drawaxis = () => {
+    const canvas = canvasRef.current;        
+    const ctx = canvas.getContext('2d');
+    ctx.save();
+    ctx.translate(xoffset,yoffset);
+    ctx.beginPath();
+    ctx.moveTo(-400, 0);
+    ctx.lineTo(400,0);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, 300);
+    ctx.lineTo(0,-300);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.restore();
+  }
 
   function getpos(e){
     const canvas = canvasRef.current; 
@@ -71,4 +89,4 @@ function App({pathx, pathy, addpoint, isdrawing, changeisdrawing}) {
   )
 }
 
-export default App;
+export default mainCanvas;
