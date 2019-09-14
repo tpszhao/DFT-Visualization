@@ -1,29 +1,29 @@
 import React, {useRef, useEffect} from 'react';
 
 
-function mainCanvas({pathx, pathy, addpoint, isdrawing, changeisdrawing}) {
+function MainCanvas({path, addpoint, isdrawing, changeisdrawing}) {
   const canvasRef = useRef(null);
-  
   const [xoffset, yoffset] = [400,300];
   
 
   useEffect(()=>{
-    draw();
-    drawaxis();
-  })
-  
-  const draw = () => {
     const canvas = canvasRef.current;        
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0,0,800,600)
+    const context = canvas.getContext('2d');
+    context.clearRect(0,0,800,600)
+
+    const length = path.length;
+    drawaxis(context);
+    draw(context,length);
+  })
+
+  const draw = (ctx, len) => {
     ctx.save();
     ctx.translate(xoffset,yoffset);
-    const length = pathx.length;
-    if (length > 0){
-      ctx.moveTo(pathx[0], pathy[0]);
+    if (len > 0){
+      ctx.moveTo(path[0].x, path[0].y);
       ctx.beginPath();
-      for (var i = 1; i < length; i++){
-        ctx.lineTo(pathx[i], pathy[i]);
+      for (var i = 1; i < len; i++){
+        ctx.lineTo(path[i].x, path[i].y);
       }
       ctx.stroke();
       ctx.closePath();
@@ -31,9 +31,7 @@ function mainCanvas({pathx, pathy, addpoint, isdrawing, changeisdrawing}) {
     ctx.restore();
   }
   
-  const drawaxis = () => {
-    const canvas = canvasRef.current;        
-    const ctx = canvas.getContext('2d');
+  const drawaxis = (ctx) => {
     ctx.save();
     ctx.translate(xoffset,yoffset);
     ctx.beginPath();
@@ -89,4 +87,4 @@ function mainCanvas({pathx, pathy, addpoint, isdrawing, changeisdrawing}) {
   )
 }
 
-export default mainCanvas;
+export default MainCanvas;
