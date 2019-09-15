@@ -7,6 +7,7 @@ function Container() {
     const [isdrawing, setIsDrawing] = useState(false);
     const [idx, setIdx] = useState(0);
 
+
     
     function addPoint(a,b){
         setPath([...path, {x:a,y:b}]);
@@ -26,11 +27,7 @@ function Container() {
             <FourierX
                 path = {path}
                 idx = {idx}/>
-            <p>Path Length is {path.length}</p>
-            <p>You clicked {idx} times</p>
-            <button onClick={() => setIdx(idx + 1)}>
-                Click me
-            </button>
+            <button onClick={()=>setIdx((idx+1)%path.length)}>Index is {idx}</button>
         </div>
     )
 }

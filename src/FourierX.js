@@ -26,8 +26,6 @@ function FourierX({path, idx}) {
         re += path[n].x * Math.cos(phi);
         im -= path[n].x * Math.sin(phi);
       }
-      im = im/len;
-      re = re/len;
       let size = Math.sqrt(re*re+im*im);
       let args = Math.atan2(im,re);
       DFTseqeuence.push({norm:size,angle:args});
@@ -36,22 +34,33 @@ function FourierX({path, idx}) {
   }
 
   const draw = (ctx, len) => {
+
     ctx.save();
     ctx.translate(xoffset,yoffset);
-    ctx.moveTo(0, 0);
-    ctx.beginPath();
+    ctx.strokeStyle = "#FF0000";
+    let x = 0;
+    let y = 0;
     for (var i = 0; i < len; i++){
-      let norm = DFTseqeuence[i].norm;
+      let norm = DFTseqeuence[i].norm/len;
       let angle = DFTseqeuence[i].angle;
-      let phase = (2*Math.PI*idx*i)/len
-      let x = norm*Math.cos(angle + phase);
-      let y = norm*Math.sin(angle + phase);
+      ctx.beginPath();
       ctx.arc(x,y,norm,0,2*Math.PI);
-      ctx.lineTo(x, y);
-      ctx.translate(x, y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      let phase = (2*Math.PI*idx*i)/len
+      x += norm*Math.cos(angle + phase);
+      y += norm*Math.sin(angle + phase);
+      ctx.lineTo(x,y);
+      ctx.stroke();
     }
-    ctx.stroke();
-    ctx.closePath();
+    if (len > 0){
+      ctx.beginPath();
+      ctx.strokeStyle = "blue";
+      ctx.moveTo(path[idx].x, 0);
+      ctx.lineTo(path[idx].x,path[idx].y);
+      ctx.stroke();
+    }
     ctx.restore();
   }
 
