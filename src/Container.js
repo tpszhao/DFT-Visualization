@@ -21,18 +21,23 @@ function Container() {
     return (
         <div>
             <div className = "wrapper">
-                <MainCanvas className = "maincanvas"
-                    path = {path} 
-                    addpoint = {addPoint}
-                    isdrawing = {isdrawing} 
-                    changeisdrawing = {changeIsDrawing}/>
                 <FourierX className = "fouriertop"
                     path = {path}
                     idx = {idx}
                     offset = {{x:400,y:300}}
                     origin = {{x:400,y:600}}/>
+                <MainCanvas className = "maincanvas"
+                    path = {path} 
+                    addpoint = {addPoint}
+                    isdrawing = {isdrawing} 
+                    changeisdrawing = {changeIsDrawing}/>
             </div>
             <button onClick={()=>setIdx((idx+1)%path.length)}>Index is {idx}</button>
+            <button onClick={()=>{
+                setPath([]);
+                setIsDrawing(false);
+                setIdx(0);
+            }}>Clear</button>
         </div>
     )
 }

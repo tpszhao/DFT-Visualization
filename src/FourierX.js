@@ -8,10 +8,9 @@ function FourierX({path, idx, offset, origin}) {
   useEffect(()=>{
     const canvas = canvasRef.current;        
     const context = canvas.getContext('2d');
-    const length = path.length;
-    context.clearRect(0,0,800,600)
-    computeDFT(length);
-    draw(context,length);
+    context.clearRect(0,0,800,900)
+    computeDFT(path.length);
+    draw(context,path.length);
   })
 
   const computeDFT = (len)=>{
@@ -32,32 +31,30 @@ function FourierX({path, idx, offset, origin}) {
   }
 
   const draw = (ctx, len) => {
-
     ctx.save();
     ctx.translate(offset.x,offset.y);
     ctx.strokeStyle = "#FF0000";
     let x = 0;
     let y = 0;
-    for (var i = 0; i < len; i++){
-      let norm = DFTseqeuence[i].norm/len;
-      let angle = DFTseqeuence[i].angle;
+    if(len > 0) {
+      for (var i = 0; i < len; i++){
+        let norm = DFTseqeuence[i].norm/len;
+        let angle = DFTseqeuence[i].angle;
+        ctx.beginPath();
+        ctx.arc(x,y,norm,0,2*Math.PI);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        let phase = (2*Math.PI*idx*i)/len
+        x += norm*Math.cos(angle + phase);
+        y += norm*Math.sin(angle + phase);
+        ctx.lineTo(x,y);
+        ctx.stroke();
+      }
       ctx.beginPath();
-      ctx.arc(x,y,norm,0,2*Math.PI);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-      let phase = (2*Math.PI*idx*i)/len
-      x += norm*Math.cos(angle + phase);
-      y += norm*Math.sin(angle + phase);
-      ctx.lineTo(x,y);
-      ctx.stroke();
-    }
-    if (len > 0){
-      ctx.beginPath();
-      ctx.restore();
-      //ctx.translate(0,300);
+      ctx.moveTo(x,y);
+      ctx.translate(origin.x - offset.x,origin.y - offset.y);
       ctx.strokeStyle = "blue";
-      //ctx.moveTo(path[idx].x, 0);
       ctx.lineTo(path[idx].x,path[idx].y);
       ctx.stroke();
     }

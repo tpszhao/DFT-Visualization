@@ -1,13 +1,15 @@
 .wrapper {
-    display: :grid;
+    display: grid;
     grid-template-rows: 300px 600px;
 }
 
 .maincanvas{
     grid-row-start: 2;
     grid-row-end: 3;
+    z-index: 10;
 }
 .fouriertop{
+    z-index: 2;
     grid-row-start: 1;
     grid-row-end: 3;
 }

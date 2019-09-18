@@ -10,11 +10,22 @@ function MainCanvas({path, addpoint, isdrawing, changeisdrawing}) {
     const canvas = canvasRef.current;        
     const context = canvas.getContext('2d');
     context.clearRect(0,0,800,600)
-
     const length = path.length;
     drawaxis(context);
     draw(context,length);
   })
+
+  const drawaxis = (ctx) => {
+    ctx.clearRect(0,0,800,600);
+    ctx.beginPath();
+    ctx.moveTo(400,0);
+    ctx.lineTo(400,600);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0,300);
+    ctx.lineTo(800,300);
+    ctx.stroke();
+  }
 
   const draw = (ctx, len) => {
     ctx.save();
@@ -31,22 +42,6 @@ function MainCanvas({path, addpoint, isdrawing, changeisdrawing}) {
     ctx.restore();
   }
   
-  const drawaxis = (ctx) => {
-    ctx.save();
-    ctx.translate(xoffset,yoffset);
-    ctx.beginPath();
-    ctx.moveTo(-400, 0);
-    ctx.lineTo(400,0);
-    ctx.closePath();
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(0, 300);
-    ctx.lineTo(0,-300);
-    ctx.closePath();
-    ctx.stroke();
-    ctx.restore();
-  }
-
   function getpos(e){
     const canvas = canvasRef.current; 
     const rect = canvas.getBoundingClientRect();
