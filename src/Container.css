@@ -1,0 +1,13 @@
+.wrapper {
+    display: :grid;
+    grid-template-rows: 300px 600px;
+}
+
+.maincanvas{
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+.fouriertop{
+    grid-row-start: 1;
+    grid-row-end: 3;
+}

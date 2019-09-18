@@ -10,7 +10,6 @@ function FourierX({path, idx, offset, origin}) {
     const context = canvas.getContext('2d');
     const length = path.length;
     context.clearRect(0,0,800,600)
-    drawaxis(context);
     computeDFT(length);
     draw(context,length);
   })
@@ -35,7 +34,7 @@ function FourierX({path, idx, offset, origin}) {
   const draw = (ctx, len) => {
 
     ctx.save();
-    ctx.translate(offxet.x,offset.y);
+    ctx.translate(offset.x,offset.y);
     ctx.strokeStyle = "#FF0000";
     let x = 0;
     let y = 0;
@@ -55,29 +54,17 @@ function FourierX({path, idx, offset, origin}) {
     }
     if (len > 0){
       ctx.beginPath();
+      ctx.restore();
+      //ctx.translate(0,300);
       ctx.strokeStyle = "blue";
-      ctx.moveTo(path[idx].x, 0);
+      //ctx.moveTo(path[idx].x, 0);
       ctx.lineTo(path[idx].x,path[idx].y);
       ctx.stroke();
     }
     ctx.restore();
   }
 
-  const drawaxis = (ctx) => {
-    ctx.save();
-    ctx.translate(origin.x,origin.y);
-    ctx.beginPath();
-    ctx.moveTo(-400, 0);
-    ctx.lineTo(400,0);
-    ctx.closePath();
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(0, 300);
-    ctx.lineTo(0,-300);
-    ctx.closePath();
-    ctx.stroke();
-    ctx.restore();
-  }
+  
   
   return (
     <div>
