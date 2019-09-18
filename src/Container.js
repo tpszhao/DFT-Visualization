@@ -26,7 +26,9 @@ function Container() {
                 changeisdrawing = {changeIsDrawing}/>
             <FourierX
                 path = {path}
-                idx = {idx}/>
+                idx = {idx}
+                offset = {{x:400,y:300}}
+                origin = {{x:400,y:300}}/>
             <button onClick={()=>setIdx((idx+1)%path.length)}>Index is {idx}</button>
         </div>
     )

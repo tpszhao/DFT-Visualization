@@ -1,9 +1,8 @@
 import React, {useRef, useEffect} from 'react';
 
 
-function FourierX({path, idx}) {
+function FourierX({path, idx, offset, origin}) {
   const canvasRef = useRef(null);
-  const [xoffset, yoffset] = [400,300];
   let DFTseqeuence = [];
 
   useEffect(()=>{
@@ -36,7 +35,7 @@ function FourierX({path, idx}) {
   const draw = (ctx, len) => {
 
     ctx.save();
-    ctx.translate(xoffset,yoffset);
+    ctx.translate(offxet.x,offset.y);
     ctx.strokeStyle = "#FF0000";
     let x = 0;
     let y = 0;
@@ -66,7 +65,7 @@ function FourierX({path, idx}) {
 
   const drawaxis = (ctx) => {
     ctx.save();
-    ctx.translate(xoffset,yoffset);
+    ctx.translate(origin.x,origin.y);
     ctx.beginPath();
     ctx.moveTo(-400, 0);
     ctx.lineTo(400,0);
@@ -82,7 +81,7 @@ function FourierX({path, idx}) {
   
   return (
     <div>
-      <canvas ref={canvasRef} width="800" height="600"/>
+      <canvas ref={canvasRef} width="800" height="900"/>
     </div>
   )
 }
