@@ -10,9 +10,8 @@ function MainCanvas({path, addpoint, isdrawing, changeisdrawing}) {
     const canvas = canvasRef.current;        
     const context = canvas.getContext('2d');
     context.clearRect(0,0,800,600)
-    const length = path.length;
     drawaxis(context);
-    draw(context,length);
+    draw(context,path.length);
   })
 
   const drawaxis = (ctx) => {
@@ -31,8 +30,8 @@ function MainCanvas({path, addpoint, isdrawing, changeisdrawing}) {
     ctx.save();
     ctx.translate(xoffset,yoffset);
     if (len > 0){
-      ctx.moveTo(path[0].x, path[0].y);
       ctx.beginPath();
+      ctx.moveTo(path[0].x, path[0].y);
       for (var i = 1; i < len; i++){
         ctx.lineTo(path[i].x, path[i].y);
       }

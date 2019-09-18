@@ -53,7 +53,8 @@ function FourierX({path, idx, offset, origin}) {
       }
       ctx.beginPath();
       ctx.moveTo(x,y);
-      ctx.translate(origin.x - offset.x,origin.y - offset.y);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.translate(origin.x,origin.y);
       ctx.strokeStyle = "blue";
       ctx.lineTo(path[idx].x,path[idx].y);
       ctx.stroke();
@@ -64,9 +65,7 @@ function FourierX({path, idx, offset, origin}) {
   
   
   return (
-    <div>
-      <canvas ref={canvasRef} width="800" height="900"/>
-    </div>
+  <canvas ref={canvasRef} width="800" height="900"/>
   )
 }
 
