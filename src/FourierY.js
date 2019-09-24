@@ -8,7 +8,7 @@ function FourierY({path, idx, offset, origin}) {
   useEffect(()=>{
     const canvas = canvasRef.current;        
     const context = canvas.getContext('2d');
-    context.clearRect(0,0,800,900)
+    context.clearRect(0,0,1200,600)
     computeDFT(path.length);
     draw(context,path.length);
   })
@@ -20,8 +20,8 @@ function FourierY({path, idx, offset, origin}) {
       let im = 0;
       for (let n = 0; n<len;n++){
         const phi = (Math.PI*2*k*n)/len;
-        im += path[n].x * Math.cos(phi);
-        re -= path[n].x * Math.sin(phi);
+        im += path[n].y * Math.cos(phi);
+        re += path[n].y * Math.sin(phi);
       }
       let size = Math.sqrt(re*re+im*im);
       let args = Math.atan2(im,re);
@@ -69,4 +69,4 @@ function FourierY({path, idx, offset, origin}) {
   )
 }
 
-export default FourierX;
+export default FourierY;
