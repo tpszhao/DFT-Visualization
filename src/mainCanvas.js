@@ -68,7 +68,7 @@ function MainCanvas({path, addpoint, isdrawing, changeisdrawing}) {
   const mouseup = () => {
     changeisdrawing(false);
   }
-  
+
   return (
     <canvas
       ref={canvasRef}
