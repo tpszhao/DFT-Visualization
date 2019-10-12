@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 
 
-function MainCanvas({path, addpoint, isdrawing, changeisdrawing}) {
+function MainCanvas({className, path, addpoint, isdrawing, changeisdrawing}) {
   const canvasRef = useRef(null);
   const [xoffset, yoffset] = [400,300];
   
@@ -71,6 +71,7 @@ function MainCanvas({path, addpoint, isdrawing, changeisdrawing}) {
 
   return (
     <canvas
+      className = {className}
       ref={canvasRef}
       width="800"
       height="600"

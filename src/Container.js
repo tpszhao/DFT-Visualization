@@ -24,19 +24,18 @@ function Container() {
     return (
         <div>
             <div className = "wrapper">
+                <MainCanvas className = "maincanvas"
+                    path = {path} 
+                    addpoint = {addPoint}
+                    isdrawing = {isdrawing} 
+                    changeisdrawing = {changeIsDrawing}/>
+                
                 <div className = "fouriertop">
                     <FourierX className = "fouriertop"
                         path = {path}
                         idx = {idx}
                         offset = {{x:400,y:300}}
                         origin = {{x:400,y:600}}/>
-                </div>
-                <div className = "maincanvas">
-                    <MainCanvas className = "maincanvas"
-                        path = {path} 
-                        addpoint = {addPoint}
-                        isdrawing = {isdrawing} 
-                        changeisdrawing = {changeIsDrawing}/>
                 </div>
                 <div className = "fourierleft">
                     <FourierY className = "fourierleft"
