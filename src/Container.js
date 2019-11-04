@@ -11,13 +11,15 @@ function Container() {
     const [isdrawing, setIsDrawing] = useState(false);
     const [idx, setIdx] = useState(0);
 
-
     
     function addPoint(a,b){
         setPath([...path, {x:a,y:b}]);
     }
     function changeIsDrawing(bool){
         setIsDrawing(bool);
+    }
+    function nextindex(){
+        setIdx((idx+1)%path.length);
     }
 
 
@@ -29,23 +31,8 @@ function Container() {
                     addpoint = {addPoint}
                     isdrawing = {isdrawing} 
                     changeisdrawing = {changeIsDrawing}/>
-                
-                <div className = "fouriertop">
-                    <FourierX className = "fouriertop"
-                        path = {path}
-                        idx = {idx}
-                        offset = {{x:400,y:300}}
-                        origin = {{x:400,y:600}}/>
-                </div>
-                <div className = "fourierleft">
-                    <FourierY className = "fourierleft"
-                        path = {path}
-                        idx = {idx}
-                        offset = {{x:400,y:300}}
-                        origin = {{x:800,y:300}}/>
-                </div>
             </div>
-            <button onClick={()=>setIdx((idx+1)%path.length)}>Index is {idx}</button>
+            <button onClick={nextindex}>Index is {idx}</button>
             <button onClick={()=>{
                 setPath([]);
                 setIsDrawing(false);
