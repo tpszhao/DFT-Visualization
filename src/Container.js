@@ -26,8 +26,13 @@ function Container() {
     return (
         <div>
             <div className = "wrapper">
-                <div>
-                    
+                <div className = "topleft">
+                    <button onClick={nextindex}>Index is {idx}</button>
+                    <button onClick={()=>{
+                        setPath([]);
+                        setIsDrawing(false);
+                        setIdx(0);
+                    }}>Clear</button>
                 </div>
                 <MainCanvas className = "maincanvas"
                     path = {path} 
@@ -35,12 +40,6 @@ function Container() {
                     isdrawing = {isdrawing} 
                     changeisdrawing = {changeIsDrawing}/>
             </div>
-            <button onClick={nextindex}>Index is {idx}</button>
-            <button onClick={()=>{
-                setPath([]);
-                setIsDrawing(false);
-                setIdx(0);
-            }}>Clear</button>
         </div>
     )
 }
