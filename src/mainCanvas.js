@@ -3,26 +3,26 @@ import React, {useRef, useEffect} from 'react';
 
 function MainCanvas({className, path, addpoint, isdrawing, changeisdrawing}) {
   const canvasRef = useRef(null);
-  const [xoffset, yoffset] = [400,300];
+  const [xoffset, yoffset] = [300,200];
   
 
   useEffect(()=>{
     const canvas = canvasRef.current;        
     const context = canvas.getContext('2d');
-    context.clearRect(0,0,800,600)
+    context.clearRect(0,0,2*xoffset,2*yoffset)
     drawaxis(context);
     draw(context,path.length);
   })
 
   const drawaxis = (ctx) => {
-    ctx.clearRect(0,0,800,600);
+    ctx.clearRect(0,0,2*xoffset,2*yoffset);
     ctx.beginPath();
-    ctx.moveTo(400,0);
-    ctx.lineTo(400,600);
+    ctx.moveTo(xoffset,0);
+    ctx.lineTo(xoffset,2*yoffset);
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(0,300);
-    ctx.lineTo(800,300);
+    ctx.moveTo(0,yoffset);
+    ctx.lineTo(2*xoffset,yoffset);
     ctx.stroke();
   }
 
@@ -73,8 +73,8 @@ function MainCanvas({className, path, addpoint, isdrawing, changeisdrawing}) {
     <canvas
       className = {className}
       ref={canvasRef}
-      width="800"
-      height="600"
+      width={2*xoffset}
+      height={2*yoffset}
       onMouseDown={mousedown}
       onMouseUp={mouseup}
       onMouseMove={mousemove}

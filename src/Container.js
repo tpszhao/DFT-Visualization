@@ -26,6 +26,9 @@ function Container() {
     return (
         <div>
             <div className = "wrapper">
+                <div>
+                    
+                </div>
                 <MainCanvas className = "maincanvas"
                     path = {path} 
                     addpoint = {addPoint}

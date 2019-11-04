@@ -1,7 +1,7 @@
 .wrapper {
     display: grid;
-    grid-template-rows: 300px 600px;
-    grid-template-columns: 400px 800px;
+    grid-template-rows: 200px 400px;
+    grid-template-columns: 200px 600px;
 }
 
 .maincanvas{
