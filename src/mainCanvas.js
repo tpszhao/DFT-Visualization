@@ -3,7 +3,7 @@ import React, {useRef, useEffect} from 'react';
 
 function MainCanvas({className, path, addpoint, isdrawing, changeisdrawing}) {
   const canvasRef = useRef(null);
-  const [xoffset, yoffset] = [300,200];
+  const [xoffset, yoffset] = [400,250];
   
 
   useEffect(()=>{
