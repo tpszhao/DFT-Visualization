@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import FourierX from './FourierX';
 import FourierY from './FourierY';
 import MainCanvas from './MainCanvas';
-import './Container.css';
+import './App.css';
 
 
-function Container() {
+function App() {
     const [path, setPath] = useState([]);
 
     const [isdrawing, setIsDrawing] = useState(false);
