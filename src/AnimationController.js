@@ -1,6 +1,9 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 
-export default function AnimationController() {
+export default function AnimationController(props) {
+  const {animation} = props;
+  const [idx, setIdx] = useState(0);
+
   return (
     <div>
       

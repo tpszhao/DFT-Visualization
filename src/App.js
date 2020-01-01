@@ -1,5 +1,6 @@
 import React,{useRef,useState} from 'react';
 import DrawingPad from './DrawingPad';
+import AnimationController from './AnimationController'
 import './App.css';
 
 
@@ -22,6 +23,9 @@ export default function App() {
             <DrawingPad className = "bottom right" 
                 addpoint = {pathAddpoint} 
                 stopanimation = {stopAnimation}/>
+            <AnimationController animation = {animation}>
+
+            </AnimationController>
         </div>
     )
 }
