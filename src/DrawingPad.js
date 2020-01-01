@@ -57,4 +57,3 @@ export default function DrawingPad(props){
   )
 }
 
-export default DrawingPad;
