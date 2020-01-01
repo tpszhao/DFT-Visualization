@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 
 
-function DrawingPad(prop){
+export default function DrawingPad(prop){
   const canvasRef = useRef(null);
   const origin = {x:400,y:250}
 
@@ -10,6 +10,7 @@ function DrawingPad(prop){
 
   useEffect(()=>{
     const canvas = canvasRef.current;
+    canvas.className = prop.className;
     canvas.width = 2*origin.x;
     canvas.height = 2*origin.y;
     const context = canvas.getContext('2d');
@@ -20,7 +21,7 @@ function DrawingPad(prop){
     const {top,left} = canvasRef.current.getBoundingClientRect();
     return {x:e.clientX - left - origin.x, y:e.clientY - top - origin.y}
   }
-  
+
   const mousedown = e => {
     prop.stopanimation();
     isDrawing.current = true;
@@ -49,7 +50,6 @@ function DrawingPad(prop){
 
   return (
       <canvas ref={canvasRef} 
-        className = {prop.className}
         onMouseMove={mousemove} 
         onMouseUp = {mouseup} 
         onMouseDown = {mousedown} 

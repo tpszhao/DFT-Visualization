@@ -3,7 +3,7 @@ import DrawingPad from './DrawingPad';
 import './App.css';
 
 
-function App() {
+export default function App() {
     const path = useRef([]);
     const [animation,setAnimation] = useState(false);
 
@@ -19,9 +19,10 @@ function App() {
 
     return (
         <div className = "wrapper">
-            <DrawingPad className = "bottom right" addpoint = {pathAddpoint} stopanimation = {stopAnimation}/>
+            <DrawingPad className = "bottom right" 
+                addpoint = {pathAddpoint} 
+                stopanimation = {stopAnimation}/>
         </div>
     )
 }
 
-export default App;
