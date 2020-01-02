@@ -2,16 +2,14 @@ import React,{useRef, useEffect} from 'react'
 
 export default function Epicycle(props) {
   const canvasRef = useRef(null);
-
-  const {path = [], idx = 0, compute_x = false, compute_y=false, origin, destination} = props;
+  const origin = {x:props.width/2,y:props.height/2}
+  const {path = [], idx = 0} = props;
   const DFT = useRef([]);
 
   useEffect(()=>{
     DFTcompute();
     draw();
   })
-
-
 
   const draw = ()=>{
     const context = canvasRef.current.getContext('2d');
@@ -41,14 +39,13 @@ export default function Epicycle(props) {
       context.beginPath();
       context.moveTo(x,y);
       context.setTransform(1, 0, 0, 1, 0, 0);
-      context.translate(destination.x,destination.y);
+      context.translate(origin.x,origin.y);
       context.lineTo(path[idx%len].x,path[idx%len].y);
       context.stroke();
     }
     context.restore();
 
   }
-
   const DFTcompute = ()=>{
     let sequence = [];
     let len = path.length;
@@ -57,14 +54,11 @@ export default function Epicycle(props) {
       let im = 0;
       for (let n = 0; n<len;n++){
         const phi = (Math.PI*2*k*n)/len;
-        if(compute_x){
           re += path[n].x * Math.cos(phi);
           im -= path[n].x * Math.sin(phi);
-        }
-        if(compute_y){
+
           im += path[n].y * Math.cos(phi);
           re += path[n].y * Math.sin(phi);
-        }
       }
       let size = Math.sqrt(re*re+im*im);
       let args = Math.atan2(im,re);
