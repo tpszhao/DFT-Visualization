@@ -10,3 +10,11 @@
 .right {
     grid-column: 2/3
 }
+
+.above{
+    z-index: 20;
+}
+button{
+    grid-row: 1/2;
+    grid-column: 1/2;
+}

@@ -22,8 +22,8 @@ export default function DrawingPad(props){
     return {x:e.clientX - left - origin.x, y:e.clientY - top - origin.y}
   }
 
+
   const mousedown = e => {
-    props.stopanimation();
     isDrawing.current = true;
     const {x,y} = currentpoint(e);
     props.addpoint(x,y);
