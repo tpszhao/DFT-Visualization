@@ -7,13 +7,20 @@ import './App.css';
 export default function App() {
     const path = useRef([]);
     const [animate, setAnimate] = useState(false)
+    const [idx, setIdx] = useState(0)
     const [width,height]=[800,500];
+
 
     const pathAddpoint = (x,y)=>{
         let newpath = path.current.slice();
         newpath.push({x,y});
         path.current = newpath;
+        stopAnimation();
     }
+    const stopAnimation = ()=>{
+        animate && setAnimate(false);
+    }
+
     return (<>
         <div className="wrapper">
             <div className = "grid">
@@ -22,8 +29,7 @@ export default function App() {
                 <Epicycle className="center" width={width} height={height}
                     animate={animate} path={path.current}/>        
             </div>
-            <button onClick={()=>{setAnimate(!animate)}}>Toggle Animation</button>
-            
+            <button onClick={()=>{setAnimate(!animate)}}>Toggle Animation</button>            
         </div>
         </>
     )

@@ -1,38 +1,37 @@
 import React,{useRef, useEffect,useState} from 'react'
 
 export default function Epicycle(props) {
-  const {path = [],animate=false} = props
-
-  
-  const [Idx, setIdx] = useState(0)
-  const intervalRef = useRef(null)
+  const {path = [],animate=false,width,height} = props;
+  const [Idx, setIdx] = useState(0);
 
   const canvasRef = useRef(null);
-  const origin = {x:props.width/2,y:props.height/2}
+  const origin = {x:width/2,y:height/2};
   const DFT = useRef([]);
 
   useEffect(()=>{
+    const context = canvasRef.current.getContext('2d');
+    context.clearRect(0,0,width,height)
     DFTcompute();
     setIdx(0);
   },[path])
 
-  useEffect(()=>{
-    let interval = null
-    if (animate) {
-      interval = setInterval(() => {
-        draw();
-        setIdx(Idx + 1);
-      }, 50);
-    } else {
-      clearInterval(interval);
-    }
-    return ()=> clearInterval(interval);
-  },[animate,Idx])
+  useEffect(() => {
+    let interval = null;
+      if (animate) {
+        interval = setInterval(() => {
+          draw();
+          setIdx(Idx => Idx + 1);
+        }, 50);
+      } else {
+        clearInterval(interval);
+      }
+      return () => clearInterval(interval); // cleanup function
+    },[animate,Idx]);
   
 
   const draw = ()=>{
     const context = canvasRef.current.getContext('2d');
-    context.clearRect(0,0,props.width,props.height)
+    context.clearRect(0,0,width,height)
     context.save();
     context.translate(origin.x,origin.y);
     let sequence = DFT.current;
@@ -65,7 +64,6 @@ export default function Epicycle(props) {
     context.restore();
 
   }
-
   const dist = (a,b,x,y)=>{
     return Math.pow(x-a,2)+Math.pow(y-b,2)
   }
@@ -94,8 +92,8 @@ export default function Epicycle(props) {
   return (
     <canvas ref = {canvasRef} 
       className= {props.className}
-      width ={props.width} 
-      height = {props.height}/>
+      width ={width} 
+      height = {height}/>
   )
 }
 
