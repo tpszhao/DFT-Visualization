@@ -3,16 +3,16 @@ import React, {useRef, useEffect} from 'react';
 
 export default function DrawingPad(props){
   const canvasRef = useRef(null);
-  const origin = {x:400,y:250}
-
+  const {width,height} = props;
+  const origin = {x:width/2,y:height/2};
   const isDrawing = useRef(false)
   const prevpos = useRef(null);
 
   useEffect(()=>{
     const canvas = canvasRef.current;
     canvas.className = props.className;
-    canvas.width = 2*origin.x;
-    canvas.height = 2*origin.y;
+    canvas.width = width ;
+    canvas.height = height ;
     const context = canvas.getContext('2d');
     context.translate(origin.x,origin.y);
   },[])
@@ -49,11 +49,15 @@ export default function DrawingPad(props){
 
 
   return (
+    <>
       <canvas ref={canvasRef} 
         onMouseMove={mousemove} 
         onMouseUp = {mouseup} 
         onMouseDown = {mousedown} 
-        onMouseLeave = {mouseup}/>
+        onMouseLeave = {mouseup}
+        />
+    </>
+
   )
 }
 

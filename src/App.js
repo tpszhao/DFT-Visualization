@@ -6,23 +6,26 @@ import './App.css';
 
 export default function App() {
     const path = useRef([]);
-    const [test,setTest] = useState(0);
+    const [animate, setAnimate] = useState(false)
     const [width,height]=[800,500];
 
     const pathAddpoint = (x,y)=>{
-        path.current.push({x,y});
+        let newpath = path.current.slice();
+        newpath.push({x,y});
+        path.current = newpath;
     }
-    return (
+    return (<>
         <div className="wrapper">
             <div className = "grid">
-                <DrawingPad className="top center" width={width} height={height}
-                    addpoint = {pathAddpoint}/>
+                <DrawingPad className="top center" width={width} height={height} 
+                    addpoint={pathAddpoint}/>  
                 <Epicycle className="center" width={width} height={height}
-                    path={path.current}
-                    idx={test} />
+                    animate={animate} path={path.current}/>        
             </div>
-            <button onClick={()=> setTest(test + 1)} style={{display:'block'}}>Test</button>
+            <button onClick={()=>{setAnimate(!animate)}}>Toggle Animation</button>
+            
         </div>
+        </>
     )
 }
 

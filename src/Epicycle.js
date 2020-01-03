@@ -1,15 +1,34 @@
-import React,{useRef, useEffect} from 'react'
+import React,{useRef, useEffect,useState} from 'react'
 
 export default function Epicycle(props) {
+  const {path = [],animate=false} = props
+
+  
+  const [Idx, setIdx] = useState(0)
+  const intervalRef = useRef(null)
+
   const canvasRef = useRef(null);
   const origin = {x:props.width/2,y:props.height/2}
-  const {path = [], idx = 0} = props;
   const DFT = useRef([]);
 
   useEffect(()=>{
     DFTcompute();
-    draw();
-  })
+    setIdx(0);
+  },[path])
+
+  useEffect(()=>{
+    let interval = null
+    if (animate) {
+      interval = setInterval(() => {
+        draw();
+        setIdx(Idx + 1);
+      }, 50);
+    } else {
+      clearInterval(interval);
+    }
+    return ()=> clearInterval(interval);
+  },[animate,Idx])
+  
 
   const draw = ()=>{
     const context = canvasRef.current.getContext('2d');
@@ -19,32 +38,36 @@ export default function Epicycle(props) {
     let sequence = DFT.current;
     let len = sequence.length;
     if (len > 1){
-      let x = 0;
-      let y = 0;
+      let a = 0;
+      let b = 0;
+      let {x,y} = path[Idx%len];
       for (var i = 0; i < len; i++){
         let norm = sequence[i].norm/len;
         let angle = sequence[i].angle;
         let speed = sequence[i].speed;
         context.beginPath();
-        context.arc(x,y,norm,0,2*Math.PI);
+        context.arc(a,b,norm,0,2*Math.PI);
         context.stroke();
         context.beginPath();
-        context.moveTo(x, y);
-        let phase = (2*Math.PI*idx*speed)/len
-        x += norm*Math.cos(angle + phase);
-        y += norm*Math.sin(angle + phase);
-        context.lineTo(x,y);
+        context.moveTo(a, b);
+        let phase = (2*Math.PI*Idx*speed)/len
+        a += norm*Math.cos(angle + phase);
+        b += norm*Math.sin(angle + phase);
+        context.lineTo(a,b);
         context.stroke();
+        if (dist(a,b,x,y) < 1 && i > 50){break;}
       }
       context.beginPath();
-      context.moveTo(x,y);
-      context.setTransform(1, 0, 0, 1, 0, 0);
-      context.translate(origin.x,origin.y);
-      context.lineTo(path[idx%len].x,path[idx%len].y);
+      context.moveTo(a,b);
+      context.lineTo(x,y);
       context.stroke();
     }
     context.restore();
 
+  }
+
+  const dist = (a,b,x,y)=>{
+    return Math.pow(x-a,2)+Math.pow(y-b,2)
   }
   const DFTcompute = ()=>{
     let sequence = [];
