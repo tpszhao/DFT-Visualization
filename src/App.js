@@ -6,10 +6,9 @@ import './App.css';
 
 export default function App() {
     const path = useRef([]);
-    const [animate, setAnimate] = useState(false)
-    const [idx, setIdx] = useState(0)
-    const [width,height]=[800,500];
-
+    const [animate, setAnimate] = useState(false);
+    const width = window.innerWidth;
+    const height = window.innerHeight;
 
     const pathAddpoint = (x,y)=>{
         let newpath = path.current.slice();
@@ -18,7 +17,7 @@ export default function App() {
         stopAnimation();
     }
     const stopAnimation = ()=>{
-        animate && setAnimate(false);
+        setAnimate(false);
     }
 
     return (<>

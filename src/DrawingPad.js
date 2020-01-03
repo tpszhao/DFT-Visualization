@@ -55,6 +55,7 @@ export default function DrawingPad(props){
         onMouseUp = {mouseup} 
         onMouseDown = {mousedown} 
         onMouseLeave = {mouseup}
+        onClick={props.onClick}
         />
     </>
 
