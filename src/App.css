@@ -4,26 +4,15 @@
     max-height: 100%;
 }
 
-.wrapper{
-    display: flex;
-    justify-Content: center;
-    align-items: center;
-    flex-Direction:column;
-    margin:0;
-}
-
-.center{
-    grid-column: 1/2;
-    grid-row: 1/2;
-}
-
-.grid{
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
+.absolute{
+    position: absolute;
 }
 
 .top{
     z-index: 20;
+}
+
+button.top{
+    z-index: 50;
 }
 

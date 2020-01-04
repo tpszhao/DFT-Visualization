@@ -21,15 +21,13 @@ export default function App() {
     }
 
     return (<>
-        <div className="wrapper">
-            <div className = "grid">
-                <DrawingPad className="top center" width={width} height={height} 
+            <div>
+                <DrawingPad className="top center absolute" width={width} height={height} 
                     addpoint={pathAddpoint}/>  
-                <Epicycle className="center" width={width} height={height}
+                <Epicycle className="center absolute" width={width} height={height}
                     animate={animate} path={path.current}/>        
+            <button className="absolute top" onClick={()=>{setAnimate(!animate)}}>Toggle Animation</button>            
             </div>
-            <button onClick={()=>{setAnimate(!animate)}}>Toggle Animation</button>            
-        </div>
         </>
     )
 }

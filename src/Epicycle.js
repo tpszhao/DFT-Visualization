@@ -18,6 +18,7 @@ export default function Epicycle(props) {
   useEffect(() => {
     let interval = null;
       if (animate) {
+        DFTcompute();
         interval = setInterval(() => {
           draw();
           setIdx(Idx => Idx + 1);
@@ -25,10 +26,10 @@ export default function Epicycle(props) {
       } else {
         clearInterval(interval);
       }
-      return () => clearInterval(interval); // cleanup function
+      return () => clearInterval(interval);
     },[animate,Idx]);
-  
 
+  
   const draw = ()=>{
     const context = canvasRef.current.getContext('2d');
     context.clearRect(0,0,width,height)
