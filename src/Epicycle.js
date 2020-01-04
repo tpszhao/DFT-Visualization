@@ -54,7 +54,7 @@ export default function Epicycle(props) {
         b += norm*Math.sin(angle + phase);
         context.lineTo(a,b);
         context.stroke();
-        if (dist(a,b,x,y) < 1 && i > 50){break;}
+        if (dist(a,b,x,y) < 1){break;}
       }
       context.beginPath();
       context.moveTo(a,b);
@@ -65,7 +65,7 @@ export default function Epicycle(props) {
 
   }
   const dist = (a,b,x,y)=>{
-    return Math.pow(x-a,2)+Math.pow(y-b,2)
+    return Math.sqrt(Math.pow(x-a,2)+Math.pow(y-b,2));
   }
   const DFTcompute = ()=>{
     let sequence = [];

@@ -15,6 +15,9 @@ export default function DrawingPad(props){
     canvas.height = height ;
     const context = canvas.getContext('2d');
     context.translate(origin.x,origin.y);
+    context.beginPath();
+    context.arc(0,0,2,0,2*Math.PI);
+    context.stroke();
   },[])
 
   const currentpoint = e =>{
