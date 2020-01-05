@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/react-gh-pages/static/css/main.e4561dd7.chunk.css",
-    "main.js": "/react-gh-pages/static/js/main.f2cd91a7.chunk.js",
-    "main.js.map": "/react-gh-pages/static/js/main.f2cd91a7.chunk.js.map",
-    "runtime-main.js": "/react-gh-pages/static/js/runtime-main.01da9fa9.js",
-    "runtime-main.js.map": "/react-gh-pages/static/js/runtime-main.01da9fa9.js.map",
-    "static/js/2.15534f62.chunk.js": "/react-gh-pages/static/js/2.15534f62.chunk.js",
-    "static/js/2.15534f62.chunk.js.map": "/react-gh-pages/static/js/2.15534f62.chunk.js.map",
-    "index.html": "/react-gh-pages/index.html",
-    "precache-manifest.262ddc41352d4588d67a5254997be1c6.js": "/react-gh-pages/precache-manifest.262ddc41352d4588d67a5254997be1c6.js",
-    "service-worker.js": "/react-gh-pages/service-worker.js",
-    "static/css/main.e4561dd7.chunk.css.map": "/react-gh-pages/static/css/main.e4561dd7.chunk.css.map",
-    "static/js/2.15534f62.chunk.js.LICENSE": "/react-gh-pages/static/js/2.15534f62.chunk.js.LICENSE"
+    "main.css": "/DFT-Visualization/static/css/main.e4561dd7.chunk.css",
+    "main.js": "/DFT-Visualization/static/js/main.f2cd91a7.chunk.js",
+    "main.js.map": "/DFT-Visualization/static/js/main.f2cd91a7.chunk.js.map",
+    "runtime-main.js": "/DFT-Visualization/static/js/runtime-main.874f392b.js",
+    "runtime-main.js.map": "/DFT-Visualization/static/js/runtime-main.874f392b.js.map",
+    "static/js/2.15534f62.chunk.js": "/DFT-Visualization/static/js/2.15534f62.chunk.js",
+    "static/js/2.15534f62.chunk.js.map": "/DFT-Visualization/static/js/2.15534f62.chunk.js.map",
+    "index.html": "/DFT-Visualization/index.html",
+    "precache-manifest.f27ab472e339d613c1e66edbb9df5e18.js": "/DFT-Visualization/precache-manifest.f27ab472e339d613c1e66edbb9df5e18.js",
+    "service-worker.js": "/DFT-Visualization/service-worker.js",
+    "static/css/main.e4561dd7.chunk.css.map": "/DFT-Visualization/static/css/main.e4561dd7.chunk.css.map",
+    "static/js/2.15534f62.chunk.js.LICENSE": "/DFT-Visualization/static/js/2.15534f62.chunk.js.LICENSE"
   },
   "entrypoints": [
-    "static/js/runtime-main.01da9fa9.js",
+    "static/js/runtime-main.874f392b.js",
     "static/js/2.15534f62.chunk.js",
     "static/css/main.e4561dd7.chunk.css",
     "static/js/main.f2cd91a7.chunk.js"
