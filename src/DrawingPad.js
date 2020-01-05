@@ -1,9 +1,9 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 
 
 export default function DrawingPad(props){
   const canvasRef = useRef(null);
-  const {width,height} = props;
+  const {width,height,hide,addpoint} = props;
   const origin = {x:width/2,y:height/2};
   const isDrawing = useRef(false)
   const prevpos = useRef(null);
@@ -11,11 +11,13 @@ export default function DrawingPad(props){
   useEffect(()=>{
     const canvas = canvasRef.current;
     canvas.className = props.className;
-    canvas.width = width ;
-    canvas.height = height ;
+    canvas.width = width;
+    canvas.height = height;
     const context = canvas.getContext('2d');
+    context.resetTransform();
+    context.clearRect(0,0,width,height);
     context.translate(origin.x,origin.y);
-  },[])
+  },[width,height])
 
   const currentpoint = e =>{
     const {top,left} = canvasRef.current.getBoundingClientRect();
@@ -26,7 +28,7 @@ export default function DrawingPad(props){
   const mousedown = e => {
     isDrawing.current = true;
     const {x,y} = currentpoint(e);
-    props.addpoint(x,y);
+    addpoint(x,y,false);
     prevpos.current = {x,y};
   }
 
@@ -39,12 +41,21 @@ export default function DrawingPad(props){
       context.lineTo(x,y);
       prevpos.current = {x,y};
       context.stroke();
-      props.addpoint(x,y);
+      addpoint(x,y,true);
     }
   }
 
   const mouseup = e => {
     isDrawing.current = false;
+    addpoint(0,0,true,"new");
+  }
+
+  const reset = ()=>{
+    addpoint(0,0,false,"reset");
+    const context = canvasRef.current.getContext('2d');
+    context.resetTransform();
+    context.clearRect(0,0,width,height);
+    context.translate(origin.x,origin.y);
   }
 
 
@@ -55,8 +66,11 @@ export default function DrawingPad(props){
         onMouseUp = {mouseup} 
         onMouseDown = {mousedown} 
         onMouseLeave = {mouseup}
-        onClick={props.onClick}
-        />
+        style={{display:hide ?"none" : ""}}/>
+      <div style={{zIndex:50,position:'absolute'}}>
+        <button onClick={props.toggleanimation}>Toggle Animation</button>            
+        <button onClick={reset} style={{display:hide ?"none" : ""}}>Clear</button>  
+      </div>
     </>
 
   )

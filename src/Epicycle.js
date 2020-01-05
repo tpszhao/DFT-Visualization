@@ -4,37 +4,72 @@ export default function Epicycle(props) {
   const {path = [],animate=false,width,height} = props;
   const [Idx, setIdx] = useState(0);
 
-  const canvasRef = useRef(null);
+  const epicycleRef = useRef(null);
+  const traceRef = useRef(null);
   const origin = {x:width/2,y:height/2};
   const DFT = useRef([]);
 
+
+  useEffect(() => {
+    [epicycleRef,traceRef].forEach(item=>{
+      const canvas = item.current;
+      canvas.className = props.className;
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext('2d');
+      context.resetTransform();
+      context.translate(origin.x,origin.y);
+      context.clearRect(-origin.x,-origin.y,width,height);
+    })
+  }, [width,height])
+
   useEffect(()=>{
-    const context = canvasRef.current.getContext('2d');
-    context.clearRect(0,0,width,height)
+    const context = epicycleRef.current.getContext('2d');
+    context.clearRect(-origin.x,-origin.y,width,height);
     DFTcompute();
     setIdx(0);
   },[path])
 
   useEffect(() => {
     let interval = null;
-      if (animate) {
-        DFTcompute();
+      if (animate&&path.length > 0) {
         interval = setInterval(() => {
           draw();
+          trace();
           setIdx(Idx => Idx + 1);
-        }, 50);
+        }, Math.min(10000/path.length,50));
       } else {
         clearInterval(interval);
+        epicycleRef.current.getContext('2d').clearRect(-origin.x,-origin.y,width,height);
+        traceRef.current.getContext('2d').clearRect(-origin.x,-origin.y,width,height);
       }
       return () => clearInterval(interval);
     },[animate,Idx]);
 
+  const trace = () => {
+    const context = traceRef.current.getContext('2d');
+    let len = path.length;
+    if (len > 1){
+      let idx = Idx % len;
+      switch(idx > 0){
+        case false:
+          context.clearRect(-origin.x,-origin.y,width,height);
+          break;
+        case true:
+          let previdx = path[idx].connected? (idx-1)%len : idx
+          context.beginPath();
+          context.moveTo(path[previdx].x,path[previdx].y);
+          context.lineTo(path[idx].x,path[idx].y);
+          context.stroke();
+      }
+    } 
+  }
   
+
   const draw = ()=>{
-    const context = canvasRef.current.getContext('2d');
-    context.clearRect(0,0,width,height)
-    context.save();
-    context.translate(origin.x,origin.y);
+    const context = epicycleRef.current.getContext('2d');
+    context.clearRect(-origin.x,-origin.y,width,height);
+    context.strokeStyle = '#669999';
     let sequence = DFT.current;
     let len = sequence.length;
     if (len > 1){
@@ -45,9 +80,11 @@ export default function Epicycle(props) {
         let norm = sequence[i].norm/len;
         let angle = sequence[i].angle;
         let speed = sequence[i].speed;
+
         context.beginPath();
         context.arc(a,b,norm,0,2*Math.PI);
         context.stroke();
+
         context.beginPath();
         context.moveTo(a, b);
         let phase = (2*Math.PI*Idx*speed)/len
@@ -55,15 +92,13 @@ export default function Epicycle(props) {
         b += norm*Math.sin(angle + phase);
         context.lineTo(a,b);
         context.stroke();
-        if (dist(a,b,x,y) < 1){break;}
+        if (dist(a,b,x,y) < 5 && i > 30){break;}
       }
       context.beginPath();
       context.moveTo(a,b);
       context.lineTo(x,y);
       context.stroke();
     }
-    context.restore();
-
   }
   const dist = (a,b,x,y)=>{
     return Math.sqrt(Math.pow(x-a,2)+Math.pow(y-b,2));
@@ -90,12 +125,10 @@ export default function Epicycle(props) {
     DFT.current = sequence;
   }
 
-  return (
-    <canvas ref = {canvasRef} 
-      className= {props.className}
-      width ={width} 
-      height = {height}/>
-  )
+  return (<>
+    <canvas ref = {epicycleRef}/>
+    <canvas ref = {traceRef}/>
+  </>)
 }
 
 

@@ -10,25 +10,32 @@ export default function App() {
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    const pathAddpoint = (x,y)=>{
-        let newpath = path.current.slice();
-        newpath.push({x,y});
-        path.current = newpath;
-        stopAnimation();
+    const pathAddpoint = (x,y,connected,special="none")=>{
+        switch(special){
+            case "reset":
+                path.current = [];
+                break;
+            case "new":
+                let newpath = path.current.slice();
+                path.current = newpath;
+                break;
+            default:
+                path.current.push({x,y,connected});
+                break;
+        }
     }
-    const stopAnimation = ()=>{
-        setAnimate(false);
-    }
+    
+    const toggleAnimation = ()=> setAnimate(!animate)
 
     return (<>
-            <div>
                 <DrawingPad className="top center absolute" width={width} height={height} 
-                    addpoint={pathAddpoint}/>  
+                    addpoint={pathAddpoint} 
+                    toggleanimation = {toggleAnimation}
+                    hide={animate}/>  
                 <Epicycle className="center absolute" width={width} height={height}
-                    animate={animate} path={path.current}/>        
-            <button className="absolute top" onClick={()=>{setAnimate(!animate)}}>Toggle Animation</button>            
-            </div>
-        </>
+                    animate={animate} 
+                    path={path.current}/>        
+            </>
     )
 }
 
