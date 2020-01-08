@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "660e6c9b1571537813b271d1ae357a2c",
+    "revision": "4398798cad11c4671b953f41bb6355b1",
     "url": "/DFT-Visualization/index.html"
   },
   {
-    "revision": "2e2bcf3dd6e868104f90",
+    "revision": "4d33f32dd1b34a1aca9f",
     "url": "/DFT-Visualization/static/css/main.e4561dd7.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/DFT-Visualization/static/js/2.15534f62.chunk.js.LICENSE"
   },
   {
-    "revision": "2e2bcf3dd6e868104f90",
-    "url": "/DFT-Visualization/static/js/main.f2cd91a7.chunk.js"
+    "revision": "4d33f32dd1b34a1aca9f",
+    "url": "/DFT-Visualization/static/js/main.6226fb23.chunk.js"
   },
   {
     "revision": "626b3682810645f33151",
