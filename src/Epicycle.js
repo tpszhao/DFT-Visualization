@@ -61,6 +61,8 @@ export default function Epicycle(props) {
           context.moveTo(path[previdx].x,path[previdx].y);
           context.lineTo(path[idx].x,path[idx].y);
           context.stroke();
+          break;
+        default:
       }
     } 
   }

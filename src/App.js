@@ -3,12 +3,15 @@ import DrawingPad from './DrawingPad';
 import Epicycle from './Epicycle'
 import './App.css';
 
+import Draggable from './Draggable'
+
 
 export default function App() {
     const path = useRef([]);
     const [animate, setAnimate] = useState(false);
     const width = window.innerWidth;
     const height = window.innerHeight;
+
 
     const pathAddpoint = (x,y,connected,special="none")=>{
         switch(special){
@@ -27,7 +30,7 @@ export default function App() {
     
     const toggleAnimation = ()=> setAnimate(!animate)
 
-    return (<>
+    return (<>  <Draggable/>
                 <DrawingPad className="top center absolute" width={width} height={height} 
                     addpoint={pathAddpoint} 
                     toggleanimation = {toggleAnimation}
