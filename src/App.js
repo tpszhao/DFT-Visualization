@@ -1,18 +1,29 @@
-import React,{useRef,useState} from 'react';
+import React,{useRef,useState,useEffect} from 'react';
 import DrawingPad from './DrawingPad';
 import Epicycle from './Epicycle'
 import './App.css';
 
-import Draggable from './Draggable'
-
+function useWindowSize() {
+    const [size, setSize] = useState([0, 0]);
+    useEffect(() => {
+    function updateSize() {
+        setSize([window.innerWidth, window.innerHeight]);
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+    }, []);
+    return size;}
 
 export default function App() {
     const path = useRef([]);
     const [animate, setAnimate] = useState(false);
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const [width,height] = useWindowSize();
 
-
+    useEffect(()=>{
+        setAnimate(false)
+    },[width,height])
+    
     const pathAddpoint = (x,y,connected,special="none")=>{
         switch(special){
             case "reset":
@@ -30,7 +41,7 @@ export default function App() {
     
     const toggleAnimation = ()=> setAnimate(!animate)
 
-    return (<>  <Draggable/>
+    return (<>  
                 <DrawingPad className="top center absolute" width={width} height={height} 
                     addpoint={pathAddpoint} 
                     toggleanimation = {toggleAnimation}

@@ -1,4 +1,5 @@
 import React, {useRef, useEffect} from 'react';
+import DraggableContainer from './DraggableContainer'
 
 export default function DrawingPad(props){
   const {width,height,hide,addpoint} = props;
@@ -66,10 +67,12 @@ export default function DrawingPad(props){
         onMouseDown = {mousedown} 
         onMouseLeave = {mouseup}
         style={{display:hide ?"none" : ""}}/>
-      <div style={{zIndex:50,position:'absolute'}}>
-        <button onClick={props.toggleanimation}>Toggle Animation</button>            
-        <button onClick={reset} style={{display:hide ?"none" : ""}}>Clear</button>  
-      </div>
+      <DraggableContainer>
+        <div style={{display:'flex',flexDirection:"column"}}>
+          <button onClick={props.toggleanimation}>{hide?"Stop":"Start"} Animation</button>            
+          <button onClick={reset} style={{display:hide ?"none" : ""}}>Clear</button>  
+        </div>
+      </DraggableContainer>
 
     </>
 
