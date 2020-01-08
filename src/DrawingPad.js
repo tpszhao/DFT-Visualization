@@ -70,6 +70,7 @@ export default function DrawingPad(props){
         <button onClick={props.toggleanimation}>Toggle Animation</button>            
         <button onClick={reset} style={{display:hide ?"none" : ""}}>Clear</button>  
       </div>
+
     </>
 
   )

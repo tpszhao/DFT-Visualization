@@ -1,7 +1,7 @@
 import React, {useRef,useState} from 'react'
 
-export default function Draggable() {
-    const containerRef = useRef(null);
+export default function DraggableContainer() {
+    const draggerRef = useRef(null);
     const [offset, setOffset] = useState({x:0,y:0});
     const prevPos = useRef(0);
     const isDragging = useRef(false);
@@ -19,21 +19,19 @@ export default function Draggable() {
             setOffset({x:offset.x + x - prevX,y:offset.y});
         }
     }
-
     const mouseup = ()=>{
         isDragging.current = false;
     }
-
-
     return (
-        <div ref={containerRef} 
-            onMouseDown={mousedown} 
-            onMouseMove={mousemove}
-            onMouseLeave = {mouseup}
-            onMouseUp={mouseup}
-            style={{backgroundColor:'lightblue',position:'absolute',zIndex:80,left:offset.x}}>
-            sldkfjaldkfhkasdjfhlakjdfhlaksjdfhlkasjdfhlaksdjfh
-
+        <div style={{position:'absolute',
+                    zIndex:80,
+                    left:offset.x}}>
+            <div ref={draggerRef} style={{backgroundColor:'lightblue'}}
+                onMouseDown={mousedown} 
+                onMouseMove={mousemove}
+                onMouseLeave = {mouseup}
+                onMouseUp={mouseup}>Click Here to Drag</div>
+            {props.children}
         </div>
     )
 }
