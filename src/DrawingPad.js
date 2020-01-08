@@ -25,14 +25,14 @@ export default function DrawingPad(props){
     return {x:e.clientX - left - origin.x, y:e.clientY - top - origin.y}
   }
 
-  const mousedown = e => {
+  const drawstart = e => {
     isDrawing.current = true;
     const {x,y} = currentpoint(e);
     addpoint(x,y,false);
     prevPos.current = {x,y};
   }
 
-  const mousemove = e => {
+  const draw = e => {
     if (isDrawing.current){
       const context = canvasRef.current.getContext('2d');
       const {x,y} = currentpoint(e);
@@ -45,7 +45,7 @@ export default function DrawingPad(props){
     }
   }
 
-  const mouseup = e => {
+  const stopdrawing = e => {
     isDrawing.current = false;
     addpoint(0,0,true,"new");
   }
@@ -61,12 +61,14 @@ export default function DrawingPad(props){
 
   return (
     <>
-      <canvas ref={canvasRef} 
-        onMouseMove={mousemove} 
-        onMouseUp = {mouseup} 
-        onMouseDown = {mousedown} 
-        onMouseLeave = {mouseup}
-        style={{display:hide ?"none" : ""}}/>
+      <canvas ref={canvasRef} style={{display:hide ?"none" : ""}}
+        onMouseDown = {drawstart} 
+        onMouseMove={draw} 
+        onMouseUp = {stopdrawing} 
+        onMouseLeave = {stopdrawing}
+        onClick={e=> {
+          e.preventDefault();
+          console.log("click")}}/>
       <DraggableContainer>
         <div style={{display:'flex',flexDirection:"column"}}>
           <button onClick={props.toggleanimation}>{hide?"Stop":"Start"} Animation</button>            
