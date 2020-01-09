@@ -1,5 +1,6 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect,useState} from 'react';
 import DraggableContainer from './DraggableContainer'
+import ImageCanvas from './ImageCanvas';
 
 export default function DrawingPad(props){
   const {width,height,hide,addpoint} = props;
@@ -11,6 +12,8 @@ export default function DrawingPad(props){
   const drawMode = useRef("stroke");
   const isDrawing = useRef(false);
   const prevPos = useRef(null);
+
+  const [image, setImage] = useState(null);
 
   useEffect(()=>{
     const canvas = canvasRef.current;
@@ -114,6 +117,19 @@ export default function DrawingPad(props){
     }
   }
 
+  const imageChange = e =>{
+    if (e.target.files&&e.target.files[0]){
+      let FR = new FileReader();
+      FR.onload = e=>{
+        let img = new Image();
+        img.onload = ()=>{
+          setImage(img);
+        }
+        img.src = e.target.result;
+      }
+      FR.readAsDataURL(e.target.files[0])
+    }
+  }
 
   return (
     <>
@@ -122,6 +138,9 @@ export default function DrawingPad(props){
         onMouseMove={mousemove} 
         onMouseUp = {stopdrawing} 
         onMouseLeave = {stopdrawing}/>
+      <ImageCanvas width = {width} height={height} zIndex={9}
+        className={props.className}
+        image={image}/>
       
       <DraggableContainer zIndex={20}>
         <div style={{display:'flex',flexDirection:"column"}}>
@@ -130,6 +149,8 @@ export default function DrawingPad(props){
           <button onClick={()=>drawModeChange("stroke")} style={hideStyle}>Stroke</button>
           <button onClick={()=>drawModeChange("tracing")} style={hideStyle}>Trace</button>
           <button onClick={()=>drawModeChange("segment")} style={hideStyle}>Segment</button>
+          
+          <input type="file" accept="image/*" onChange={imageChange}/>
         </div>
       </DraggableContainer>
 
