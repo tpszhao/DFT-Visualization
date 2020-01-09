@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/DFT-Visualization/static/css/main.e4561dd7.chunk.css",
-    "main.js": "/DFT-Visualization/static/js/main.6226fb23.chunk.js",
-    "main.js.map": "/DFT-Visualization/static/js/main.6226fb23.chunk.js.map",
+    "main.css": "/DFT-Visualization/static/css/main.db057d4a.chunk.css",
+    "main.js": "/DFT-Visualization/static/js/main.97fb9857.chunk.js",
+    "main.js.map": "/DFT-Visualization/static/js/main.97fb9857.chunk.js.map",
     "runtime-main.js": "/DFT-Visualization/static/js/runtime-main.874f392b.js",
     "runtime-main.js.map": "/DFT-Visualization/static/js/runtime-main.874f392b.js.map",
     "static/js/2.15534f62.chunk.js": "/DFT-Visualization/static/js/2.15534f62.chunk.js",
     "static/js/2.15534f62.chunk.js.map": "/DFT-Visualization/static/js/2.15534f62.chunk.js.map",
     "index.html": "/DFT-Visualization/index.html",
-    "precache-manifest.e81d1dbec5c57738f9e9234d47aa144a.js": "/DFT-Visualization/precache-manifest.e81d1dbec5c57738f9e9234d47aa144a.js",
+    "precache-manifest.acbc825b981efe397b5f743e21455b4c.js": "/DFT-Visualization/precache-manifest.acbc825b981efe397b5f743e21455b4c.js",
     "service-worker.js": "/DFT-Visualization/service-worker.js",
-    "static/css/main.e4561dd7.chunk.css.map": "/DFT-Visualization/static/css/main.e4561dd7.chunk.css.map",
+    "static/css/main.db057d4a.chunk.css.map": "/DFT-Visualization/static/css/main.db057d4a.chunk.css.map",
     "static/js/2.15534f62.chunk.js.LICENSE": "/DFT-Visualization/static/js/2.15534f62.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.874f392b.js",
     "static/js/2.15534f62.chunk.js",
-    "static/css/main.e4561dd7.chunk.css",
-    "static/js/main.6226fb23.chunk.js"
+    "static/css/main.db057d4a.chunk.css",
+    "static/js/main.97fb9857.chunk.js"
   ]
 }
