@@ -4,7 +4,7 @@ export default function DraggableContainer(props) {
     const [offset, setOffset] = useState({x:0,y:0});
     const containerStyle={
         position:'absolute',
-        zIndex:50,
+        zIndex:props.zIndex,
         left:offset.x,
         top:offset.y};
     const draggerStyle = {
@@ -18,7 +18,7 @@ export default function DraggableContainer(props) {
     const draggerRef = useRef(null);
     const isDragging = useRef(false);
 
-    const dragstart = e =>{
+    const dragstart = () =>{
         isDragging.current = true;
     }
 

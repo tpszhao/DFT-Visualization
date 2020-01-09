@@ -10,10 +10,6 @@
 }
 
 .top{
-    z-index: 20;
-}
-
-button.top{
-    z-index: 50;
+    z-index: 10;
 }
 

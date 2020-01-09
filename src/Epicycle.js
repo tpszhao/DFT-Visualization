@@ -10,6 +10,8 @@ export default function Epicycle(props) {
   const DFT = useRef([]);
 
 
+
+
   useEffect(() => {
     [epicycleRef,traceRef].forEach(item=>{
       const canvas = item.current;
@@ -29,6 +31,8 @@ export default function Epicycle(props) {
     DFTcompute();
     setIdx(0);
   },[path])
+
+
 
   useEffect(() => {
     let interval = null;
@@ -94,16 +98,13 @@ export default function Epicycle(props) {
         b += norm*Math.sin(angle + phase);
         context.lineTo(a,b);
         context.stroke();
-        if (dist(a,b,x,y) < 5 && i > 30){break;}
+        if (Math.hypot(x-a,y-b) < 5 && i > 30){break;}
       }
       context.beginPath();
       context.moveTo(a,b);
       context.lineTo(x,y);
       context.stroke();
     }
-  }
-  const dist = (a,b,x,y)=>{
-    return Math.sqrt(Math.pow(x-a,2)+Math.pow(y-b,2));
   }
   const DFTcompute = ()=>{
     let sequence = [];
