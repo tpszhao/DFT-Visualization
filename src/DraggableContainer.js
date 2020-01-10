@@ -6,16 +6,11 @@ export default function DraggableContainer(props) {
         position:'absolute',
         zIndex:props.zIndex,
         left:offset.x,
-        top:offset.y};
-    const draggerStyle = {
-        display:'flex',
-        justifyContent:'center',
-        alignItems:'center',
-        backgroundColor:'lightblue',
+        top:offset.y, 
         cursor:'pointer',
-        Width:200,padding:20
-    }
-    const draggerRef = useRef(null);
+        border:'thick double #32a1ce',
+        padding: 10};
+    
     const isDragging = useRef(false);
 
     const dragstart = () =>{
@@ -32,12 +27,12 @@ export default function DraggableContainer(props) {
     const stopdrag = e=>{
         isDragging.current = false;
     }
-    return (<div style={containerStyle}>
-                <div ref={draggerRef} style={draggerStyle}
+    return (<div 
+                style={containerStyle}
                 onMouseDown={dragstart}
                 onMouseMove={drag}
                 onMouseUp={stopdrag}
-                onMouseLeave={stopdrag}>Click Here to Drag</div>
+                onMouseLeave={stopdrag}>
                 {props.children}
             </div>
     )

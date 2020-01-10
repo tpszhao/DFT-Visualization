@@ -139,7 +139,6 @@ export default function DrawingPad(props){
         onMouseUp = {stopdrawing} 
         onMouseLeave = {stopdrawing}/>
       <ImageCanvas width = {width} height={height} zIndex={9}
-        className={props.className}
         image={image}/>
       
       <DraggableContainer zIndex={20}>

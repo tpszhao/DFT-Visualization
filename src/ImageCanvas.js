@@ -3,7 +3,7 @@ import React,{useRef,useEffect,useState} from 'react'
 export default function ImageCanvas(props) {
     const canvasRef = useRef(null);
     const [offset, setOffset] = useState({x:0,y:0});
-    const [scale, setScale] = useState(0.74)
+    const [scale, setScale] = useState(0.5)
     
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -13,7 +13,7 @@ export default function ImageCanvas(props) {
         if(props.image == null){
             setOffset({x:0,y:0})
         } else {
-            context.drawImage(image,offset.x,offset.y,image.width*0.5,image.height*0.5)
+            context.drawImage(image,offset.x,offset.y,image.width*scale,image.height*scale)
         }
     }, [props.image,props.width,props.height])
     
