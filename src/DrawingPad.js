@@ -145,7 +145,7 @@ export default function DrawingPad(props){
         <div style={{display:'flex',flexDirection:"column"}}>
           <button onClick={props.toggleanimation}>{hide?"Stop":"Start"} Animation</button>            
           <button onClick={reset} style={hideStyle}>Clear</button>  
-          <button onClick={()=>drawModeChange("stroke")} style={hideStyle}>Stroke</button>
+          <button onClick={()=>{drawModeChange("stroke")}} style={hideStyle}>Stroke</button>
           <button onClick={()=>drawModeChange("tracing")} style={hideStyle}>Trace</button>
           <button onClick={()=>drawModeChange("segment")} style={hideStyle}>Segment</button>
           
