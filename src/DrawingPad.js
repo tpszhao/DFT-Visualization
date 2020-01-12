@@ -1,12 +1,17 @@
 import React, {useRef, useEffect,useState} from 'react';
+import Button from '@material-ui/core/Button';
 import DraggableContainer from './DraggableContainer'
 import ImageCanvas from './ImageCanvas';
+import StrokeStyleSelection from './UI/StrokeStyleSelection';
+import CanvasEditingChoice from './UI/CanvasEditingChoice';
+
 
 export default function DrawingPad(props){
   const {width,height,hide,addpoint} = props;
   const origin = {x:width/2,y:height/2};
 
   const hideStyle = {display:hide ?"none" : ""};
+  const flexitemStyle = {margin:5}
 
   const canvasRef = useRef(null);
   const drawMode = useRef("stroke");
@@ -14,16 +19,17 @@ export default function DrawingPad(props){
   const prevPos = useRef(null);
 
   const [image, setImage] = useState(null);
+  const [editImage, setEditImage] = useState(false);
+  const [mobile, setMobile] = useState(false);
 
   useEffect(()=>{
     const canvas = canvasRef.current;
-    canvas.className = props.className;
-    canvas.width = width;
-    canvas.height = height;
     const context = canvas.getContext('2d');
     context.resetTransform();
     context.clearRect(0,0,width,height);
     context.translate(origin.x,origin.y);
+    Math.max(width,height) < 750 ? setMobile(true) : setMobile(false); 
+    drawMode.current = "stroke"
   },[width,height])
 
   const currentpoint = e =>{
@@ -110,7 +116,7 @@ export default function DrawingPad(props){
     prevPos.current = null;
   }
 
-  const drawModeChange = str =>{
+  const ChangeStokeStyle = str =>{
     drawMode.current = str;
     if (str == "segment"){
       prevPos.current = null;
@@ -133,21 +139,41 @@ export default function DrawingPad(props){
 
   return (
     <>
-      <canvas ref={canvasRef} style={hideStyle}
+      <canvas 
+        ref={canvasRef} className={props.className} style={hideStyle} 
+        width={width} height = {height}
         onMouseDown = {mousedown} 
-        onMouseMove={mousemove} 
+        onMouseMove = {mousemove} 
         onMouseUp = {stopdrawing} 
         onMouseLeave = {stopdrawing}/>
-      <ImageCanvas width = {width} height={height} zIndex={9}
+      <ImageCanvas width = {width} height={height} zIndex={hide? 2 : (editImage? 11:9)}
         image={image}/>
       
       <DraggableContainer zIndex={20}>
         <div style={{display:'flex',flexDirection:"column"}}>
-          <button onClick={props.toggleanimation}>{hide?"Stop":"Start"} Animation</button>            
-          <button onClick={reset} style={hideStyle}>Clear</button>  
-          <button onClick={()=>{drawModeChange("stroke")}} style={hideStyle}>Stroke</button>
-          <button onClick={()=>drawModeChange("tracing")} style={hideStyle}>Trace</button>
-          <button onClick={()=>drawModeChange("segment")} style={hideStyle}>Segment</button>
+          <Button 
+            variant="contained" 
+            color="primary" 
+            onClick={props.toggleanimation}
+            style={flexitemStyle}>{hide?"Stop":"Start"} Animation</Button>            
+          <Button 
+            variant="contained" 
+            color="primary" 
+            onClick={reset} 
+            style={{...hideStyle,...flexitemStyle}}>Clear</Button>  
+
+          <CanvasEditingChoice 
+            value={editImage} 
+            onChange={()=>setEditImage(!editImage)}
+            style = {{...hideStyle,...flexitemStyle}}/>
+
+          <StrokeStyleSelection 
+            style = {{...hideStyle,...flexitemStyle}}
+            values={["stroke","tracing","segment"]}
+            onChange={e=> ChangeStokeStyle(e.target.value)}/>
+
+          
+          
           
           <input type="file" accept="image/*" onChange={imageChange}/>
         </div>

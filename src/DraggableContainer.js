@@ -9,7 +9,8 @@ export default function DraggableContainer(props) {
         top:offset.y, 
         cursor:'pointer',
         border:'thick double #32a1ce',
-        padding: 10};
+        backgroundColor:'white',
+        padding: 20};
     
     const isDragging = useRef(false);
 

@@ -129,8 +129,8 @@ export default function Epicycle(props) {
   }
 
   return (<>
-    <canvas ref = {epicycleRef}/>
-    <canvas ref = {traceRef}/>
+    <canvas ref = {epicycleRef} style={{zIndex:5}}/>
+    <canvas ref = {traceRef} style={{zIndex:5}}/>
   </>)
 }
 
