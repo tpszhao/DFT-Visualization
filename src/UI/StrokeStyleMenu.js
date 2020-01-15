@@ -4,13 +4,14 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 
-export default function StrokeStyleSelection(props) {
-    const {values,onChange,style} = props;
-    return (<div style={style}>
+export default function StrokeStyleMenu(props) {
+    const {values,onChange,defaultvalue} = props;
+    return (<div>
                 <FormLabel 
                     component="legend" 
                     style={{color:'black',margin:5}}>Stroke Style</FormLabel>
-                <RadioGroup name="StrokeStyle" onChange={onChange} row>
+                <RadioGroup name="StrokeStyle" onChange={onChange} row
+                    defaultValue={defaultvalue.current}>
                     {values.map((value,i)=>{
                         return (<FormControlLabel 
                                     value={value} 
