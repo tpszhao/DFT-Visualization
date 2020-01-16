@@ -17,6 +17,7 @@ function useWindowSize() {
 
 export default function App() {
     const path = useRef([]);
+    const pathChanged = useRef(false);
     const [animate, setAnimate] = useState(false);
     const [width,height] = useWindowSize();
 
@@ -24,26 +25,29 @@ export default function App() {
         setAnimate(false)
     },[width,height])
     
-    const pathAddpoint = (x,y,connected,special="none")=>{
-        switch(special){
-            case "reset":
-                path.current = [];
-                break;
-            case "new":
-                let newpath = path.current.slice();
-                path.current = newpath;
-                break;
-            default:
-                path.current.push({x,y,connected});
-                break;
-        }
+    const pathAddpoint = (x,y,connected = true)=>{
+        pathChanged.current = true;
+        path.current.push({x,y,connected});
+    }
+
+    const resetPath = ()=>{
+        pathChanged.current = true;
+        path.current=[];
     }
     
-    const toggleAnimation = ()=> setAnimate(!animate)
+    const toggleAnimation = ()=> {
+        if(pathChanged.current){
+            pathChanged.current = true;
+            const newpath = path.current.slice();
+            path.current = newpath;
+        }
+        setAnimate(!animate)
+    }
 
     return (<>  
                 <DrawingPad className="top center absolute" width={width} height={height} 
                     addpoint={pathAddpoint} 
+                    resetpath={resetPath}
                     toggleanimation = {toggleAnimation}
                     hide={animate}/>  
                 <Epicycle className="center absolute" width={width} height={height}

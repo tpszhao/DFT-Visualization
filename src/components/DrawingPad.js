@@ -1,13 +1,13 @@
 import React, {useRef, useEffect,useState} from 'react';
 import Button from '@material-ui/core/Button';
-import DraggableContainer from './DraggableContainer'
+import DraggableContainer from './UI/DraggableContainer'
 import ImageCanvas from './ImageCanvas';
 import StrokeStyleMenu from './UI/StrokeStyleMenu';
 import ImageCanvasMenu from './UI/ImageCanvasMenu';
 
 
 export default function DrawingPad(props){
-  const {width,height,hide,addpoint} = props;
+  const {width,height,hide,addpoint,resetpath} = props;
   const origin = {x:width/2,y:height/2};
 
   const hideStyle = {display:hide ?"none" : ""};
@@ -20,6 +20,8 @@ export default function DrawingPad(props){
 
   const [image, setImage] = useState(null);
   const [editImage, setEditImage] = useState(false);
+  const [hideImage, setHideImage] = useState(false);
+  const [imageScale, setImageScale] = useState(100);
 
   useEffect(()=>{
     const canvas = canvasRef.current;
@@ -102,11 +104,10 @@ export default function DrawingPad(props){
 
   const stopdrawing = e => {
     isDrawing.current = false;
-    addpoint(0,0,true,"new");
   }
 
   const reset = ()=>{
-    addpoint(0,0,false,"reset");
+    resetpath();
     const context = canvasRef.current.getContext('2d');
     context.resetTransform();
     context.clearRect(0,0,width,height);
@@ -147,8 +148,13 @@ export default function DrawingPad(props){
       <ImageCanvas 
         width = {width} 
         height={height} 
+        style={{
+          zIndex:hide? 2 : (editImage? 11:9),
+          cursor: (!hide && editImage)? 'grab' : ''}}
         zIndex={hide? 2 : (editImage? 11:9)}
-        image={image}/>
+        scale={imageScale*0.01}
+        image={image}
+        hideImage={hideImage}/>
       
       <DraggableContainer zIndex={20}>
         <div style={{display:'flex',flexDirection:'column'}}>
@@ -166,13 +172,18 @@ export default function DrawingPad(props){
 
         <div style={{display:hide? 'none':''}}>
           <ImageCanvasMenu
-            value={editImage} 
-            onChange={()=>setEditImage(!editImage)}/>
+            switchvalue={editImage}
+            onswitch={()=> setEditImage(!editImage)}
+            hideImage={hideImage}
+            toggleHideImage={()=>setHideImage(!hideImage)}
+            scale={imageScale}
+            scaleChange={(e,val)=>setImageScale(val)}
+            imageChange={imageChange}
+            />
           <StrokeStyleMenu 
             defaultvalue = {drawMode}
             values={["stroke","tracing","segment"]}
             onChange={e=> ChangeStokeStyle(e.target.value)}/>
-          <input type="file" accept="image/*" onChange={imageChange}/>
         </div>
       </DraggableContainer>
 

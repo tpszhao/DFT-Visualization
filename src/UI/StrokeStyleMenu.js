@@ -3,10 +3,11 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 
 export default function StrokeStyleMenu(props) {
     const {values,onChange,defaultvalue} = props;
-    return (<div>
+    return (<FormGroup column>
                 <FormLabel 
                     component="legend" 
                     style={{color:'black',margin:5}}>Stroke Style</FormLabel>
@@ -20,7 +21,7 @@ export default function StrokeStyleMenu(props) {
                                     control={<Radio color="primary"/>}/>)
                     })}
                 </RadioGroup>
-        </div>
+        </FormGroup>
     )
 }
 
