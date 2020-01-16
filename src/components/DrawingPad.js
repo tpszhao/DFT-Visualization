@@ -1,9 +1,9 @@
 import React, {useRef, useEffect,useState} from 'react';
 import Button from '@material-ui/core/Button';
-import DraggableContainer from './UI/DraggableContainer'
+import DraggableContainer from '../UI/DraggableContainer'
 import ImageCanvas from './ImageCanvas';
-import StrokeStyleMenu from './UI/StrokeStyleMenu';
-import ImageCanvasMenu from './UI/ImageCanvasMenu';
+import StrokeStyleMenu from '../UI/StrokeStyleMenu';
+import ImageCanvasMenu from '../UI/ImageCanvasMenu';
 
 
 export default function DrawingPad(props){
