@@ -16,8 +16,9 @@ export default function DraggableContainer(props) {
     const isDragging = useRef(false);
 
     const dragstart = e =>{
-        if(e.target == containerRef.current)
-        isDragging.current = true;
+        if(e.target == containerRef.current){
+            isDragging.current = true;
+        }
     }
 
     const drag = e=>{
