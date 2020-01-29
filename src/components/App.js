@@ -22,7 +22,8 @@ export default function App() {
     const [width,height] = useWindowSize();
 
     useEffect(()=>{
-        setAnimate(false)
+        setAnimate(false);
+        resetPath();
     },[width,height])
     
     const pathAddpoint = (x,y,connected = true)=>{
